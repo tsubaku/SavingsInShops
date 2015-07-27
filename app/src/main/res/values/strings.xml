@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">Savings In Shops</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="stringSetMarket">Отметьте магазины</string>
+    <string name="stringSetProduct">Отметьте продукты</string>
+    <string name="Next">Вперёд</string>
+    <string name="Back">Назад</string>
+    <string name="OkButtonText">Сохранить выбор</string>
+    <string name="CancelButtonText">Отменить выбор</string>
+    <string name="textMarketListTest">Магазины не выбраны</string>
+    <string name="textProductListTest">Продукты не выбраны</string>
+    <string name="textMeatListTest">Мясные продукты не выбраны</string>
+
+    <string-array name="marketNames">
+        <item>Атак</item>
+        <item>Дикси</item>
+        <item>Окей</item>
+        <item>Магнит</item>
+    </string-array>
+
+    <string-array name="productNames">
+        <item>Овощи</item>
+        <item>Фрукты</item>
+        <item>Крупы</item>
+        <item>Мясо</item>
+    </string-array>
+    <string name="Vegetables">Овощи</string>
+    <string name="Fruits">Фрукты</string>
+    <string name="Groats">Крупы</string>
+    <string name="Meat">Мясо</string>
+
+    <string-array name="vegetablesNames">
+        <item>Картофель</item>
+        <item>Морковь</item>
+        <item>Капуста</item>
+    </string-array>
+    <string name="Potatoes">Картофель</string>
+    <string name="Carrot">Корковь</string>
+    <string name="Cabbage">Капуста</string>
+
+    <string-array name="fruitsNames">
+        <item>Бананы</item>
+        <item>Яблоки</item>
+        <item>Апельсины</item>
+    </string-array>
+
+    <string-array name="groatsNames">
+        <item>Рис</item>
+        <item>Гречка</item>
+        <item>Горох</item>
+    </string-array>
+
+    <string-array name="meatNames">
+        <item>Говядина</item>
+        <item>Свинина</item>
+        <item>Окорочка куриные</item>
+    </string-array>
+    <string name="Beef">Говядина</string>
+    <string name="Pork">Свинина</string>
+    <string name="ChickenLegs">Окорочка куриные</string>
+
+
+
+
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="title_activity_table">TableActivity</string>
+    <string name="title_activity_sub_product">SubProductActivity</string>
+    <string name="title_activity_change">ChangeActivity</string>
+    <string name="title_activity_groads">Крупы</string>
+    <string name="title_activity_meat">Мясные продукты</string>
+    <string name="title_activity_vegetables">VegetablesActivity</string>
+
+
+</resources>
