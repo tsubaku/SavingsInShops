@@ -13,45 +13,37 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 
 public class ProductActivity extends ActionBarActivity {
-    public TextView selectionMarket; //переменная для текстовой метки списка выбранных магазинов
-    public ListView listViewMarket; //переменная для листа магазинов
-    public TextView selectionProduct; //переменная для текстовой метки списка выбранных продуктов
-    public ListView listViewProduct; //переменная для листа продуктов
-    public String typeProduct; //текстовая метка типа продуктов (мясо/овощи/etc)
-    public ArrayList<String> listProducts = new ArrayList(); //общий список продуктов
-    public ArrayList<String> vegetablesListProducts = new ArrayList(); //
-    public ArrayList<String> fruitsListProducts = new ArrayList(); //
-    public ArrayList<String> groatsListProducts = new ArrayList(); //
-    public ArrayList<String> meatListProducts = new ArrayList(); //
-    static final private int ACTIVITY_NUMBER = 0;
-    public String N;
+    public TextView selectionMarket;    //переменная для текстовой метки списка выбранных магазинов
+    public ListView listViewMarket;     //переменная для листа магазинов
+    public TextView selectionProduct;   //переменная для текстовой метки списка выбранных продуктов
+    public ListView listViewProduct;    //переменная для листа продуктов
+    public String typeProduct;          //текстовая метка типа продуктов (мясо/овощи/etc)
+    public HashMap<String, String> generalMapProduct = new HashMap<String, String>();   //Общий список выбранных продуктов
+    public HashMap<String, String> mapProduct = new HashMap<String, String>();          //Список части выбранных продуктов
+    static final private int NUMBER_SUB_PRODUCT_ACTIVITY = 0;                           //Номер активити выбора продуктов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        // получаем экземпляр элемента ListView
-        listViewProduct = (ListView)findViewById(R.id.listViewProduct);
-        //получаем значение текстовой метки списка выбранных продуктов
-        selectionProduct = (TextView) findViewById(R.id.textViewProductListTest);
-        //получаем значение текстовой метки списка выбранных магазинов
-        selectionMarket = (TextView) findViewById(R.id.textViewMarketListTest);
-        // определяем массив типа String
-        final String[] productName = getResources().getStringArray(R.array.productNames);
+        listViewProduct = (ListView)findViewById(R.id.listViewProduct);             //ЛистВью продуктов
+        selectionProduct = (TextView) findViewById(R.id.textViewProductListTest);   //Список выбранных продуктов
+        selectionMarket = (TextView) findViewById(R.id.textViewMarketListTest);     //Список выбранных магазинов
+        final String[] productName = getResources().getStringArray(R.array.productNames);//Массив для строк типов продуктов
         // используем адаптер данных
-        ArrayAdapter<String> adapterProduct = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, productName);
-        listViewProduct.setAdapter(adapterProduct); //присобачиваем адаптер к списку продуктов
+        ArrayAdapter<String> adapterProduct = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productName);
+        listViewProduct.setAdapter(adapterProduct);     //присобачиваем адаптер к списку продуктов
 
         //Забираем из МайнАктивити список выбранных магазинов
         String listMarket = "Список выбранных продуктов не пришёл. Это странно";
         listMarket = getIntent().getExtras().getString("listMarkets");
-        //Прописываем их в тектовую метку
-        selectionMarket.setText(listMarket);
+        selectionMarket.setText(listMarket);    //Показываем список выбранных магазинов
 
         //Создаём слушателя для списка продуктов
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,16 +70,16 @@ public class ProductActivity extends ActionBarActivity {
                 String strText = textView.getText().toString(); // получаем текст нажатого элемента
                 if(strText.equalsIgnoreCase(getResources().getString(R.string.Vegetables))) {
                     typeProduct = "vegetables";
-                    N = "1";
+                    //N = "1";
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.Fruits))) {
                     typeProduct = "fruits";
-                    N = "2";
+                    //N = "2";
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.Groats))) {
                     typeProduct = "groats";
-                    N = "3";
+                    //N = "3";
                 }else if (strText.equalsIgnoreCase(getResources().getString(R.string.Meat))) {
                     typeProduct = "meat";
-                    N = "4";
+                    //N = "4";
                 }
                 else {
                     typeProduct = "no products";
@@ -96,7 +88,7 @@ public class ProductActivity extends ActionBarActivity {
                 Intent intentSubProduct = new Intent(ProductActivity.this, SubProductActivity.class);
                 // в ключ typeProduct пихаем текстовую метку, по которой будет видно тип продуктов
                 intentSubProduct.putExtra("typeProduct", typeProduct);
-                startActivityForResult(intentSubProduct, ACTIVITY_NUMBER);
+                startActivityForResult(intentSubProduct, NUMBER_SUB_PRODUCT_ACTIVITY);
 
             }
         });
@@ -111,16 +103,55 @@ public class ProductActivity extends ActionBarActivity {
 
        // TextView infoTextView = (TextView) findViewById(R.id.textViewProductListTest);
 
-        if (requestCode == ACTIVITY_NUMBER) {
+        if (requestCode == NUMBER_SUB_PRODUCT_ACTIVITY) {
             if (resultCode == RESULT_OK) {
-                String productName = data.getStringExtra(SubProductActivity.PRODECTS_LIST);
-                selectionProduct.setText(productName);
+        ////        String productName = data.getStringExtra(SubProductActivity.PRODECTS_LIST);
+                //Забираем список выбранных продуктов
+                HashMap<String, String> hashMapProducts = (HashMap<String, String>)data.getSerializableExtra("PRODECTS_LIST");
 
+                if (hashMapProducts.isEmpty()){ //Если пользователь ничего не выбрал, то ничего и не делаем
+                    selectionProduct.setText("no change");
+                } else {
+                    //Тут проверка, выводящая принятый хешмап в метку
+                    //for (String key : hashMapProducts.keySet()) {
+                    //    selectionProduct.append(hashMapProducts + " ");
+                    //}
 
+                    //Вариант, как узнать, с какой группой продуктов мы работаем
+                    //for (String value : hashMapProducts.values()) {
+                    //    selectionProduct.setText(value);
+                    //}
+
+                    //selectionProduct.setText(typeProduct);//проверка, что мы видим typeProduct
+
+                    //Удаляем из главной мапы продуктов тот класс продуктов, который только что редактировали
+                    if (generalMapProduct.isEmpty()){
+                        //Если главная мапа пустая, не делать ничего
+                    }else{
+                        for(Iterator<HashMap.Entry<String, String>> it = generalMapProduct.entrySet().iterator(); it.hasNext(); ) {
+                            HashMap.Entry<String, String> entry = it.next();
+                            if(entry.getValue().equals(typeProduct)) {
+                                it.remove();
+                            }
+                        }
+                    }
+
+                    //Суммируем главную мапу и пришедшую.
+                    generalMapProduct.putAll(hashMapProducts);
+                    //selectionProduct.setText(typeProduct);
+
+                    selectionProduct.setText("");
+                    for (String key : generalMapProduct.keySet()) {
+                        selectionProduct.append("  " + key + "  ");
+                    }
+                    //selectionProduct.append(generalMapProduct + " ");
+
+                }
+                    //selectionProduct.setText(hashMapProducts.get("meat"));
 
 
             }else {
-                selectionProduct.setText("фигня какая-то случилась"); // фигня какая-то случилась
+                selectionProduct.setText("фигня какая-то случилась7"); // фигня какая-то случилась
             }
         }
     }
@@ -151,8 +182,8 @@ public class ProductActivity extends ActionBarActivity {
 
     //Переходим в активити с таблицей
     public void onClickNext2(View view) {
-        Intent intent = new Intent(ProductActivity.this, TableActivity.class);
-        startActivity(intent);
+        Intent intentTableActivity = new Intent(ProductActivity.this, TableActivity.class);
+        startActivity(intentTableActivity);
     }
 
     //Закрываем активити и возвращаемся к выбору магазинов

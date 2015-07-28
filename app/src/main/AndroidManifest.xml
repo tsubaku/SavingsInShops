@@ -32,18 +32,6 @@
             android:name=".ChangeActivity"
             android:label="@string/title_activity_change" >
         </activity>
-        <activity
-            android:name=".GroadsActivity"
-            android:label="@string/title_activity_groads" >
-        </activity>
-        <activity
-            android:name=".MeatActivity"
-            android:label="@string/title_activity_meat" >
-        </activity>
-        <activity
-            android:name=".VegetablesActivity"
-            android:label="@string/title_activity_vegetables" >
-        </activity>
     </application>
 
 </manifest>

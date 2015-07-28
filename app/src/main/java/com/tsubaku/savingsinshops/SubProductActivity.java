@@ -16,13 +16,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 
 public class SubProductActivity extends ActionBarActivity {
     public TextView selectionProduct; //переменная для текстовой метки списка выбранных продуктов
     public ListView listViewVegetables; //переменная для списка овощей
     public ListView listViewProducts; //переменная для списка продуктов
-    Map<String, String> mapProduct = new HashMap<String, String>();
+    public HashMap<String, String> mapProduct = new HashMap<String, String>();
     String productGroup; //строка для V - группы продуктов в HashMap
 
     public final static String PRODECTS_LIST = "com.tsubaku.savingsinshops.Products";
@@ -32,9 +33,10 @@ public class SubProductActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_product);
 
+
         //получаем значение текстовой метки списка выбранных продуктов
         selectionProduct = (TextView) findViewById(R.id.textViewProductListTest);
-        selectionProduct.setText("");//Сразу обнуляем метку списка выбранных продуктов
+        selectionProduct.setText("");   //Сразу её обнуляем
 
         //Забираем из ПродактАктивити метку типа продуктов
         String typeSubProduct = "type";
@@ -61,7 +63,7 @@ public class SubProductActivity extends ActionBarActivity {
         } else if (typeSubProduct.equalsIgnoreCase("groats")) {
             //selectionProduct.append(typeSubProduct + " 3");
             Products = getResources().getStringArray(R.array.groatsNames);
-            productGroup = "vegetables";
+            productGroup = "groats";
 
         }else if (typeSubProduct.equalsIgnoreCase("meat")) {
             //selectionProduct.append(typeSubProduct + " 4");
@@ -76,7 +78,7 @@ public class SubProductActivity extends ActionBarActivity {
         // используем адаптер данных
         ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice, Products);
-        listViewProducts.setAdapter(adapter3); //присобачиваем адаптер к списку фруктов
+        listViewProducts.setAdapter(adapter3); //присобачиваем адаптер к списку продуктов
 
         //Создаём слушателя для списка продуктов
         listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,24 +87,22 @@ public class SubProductActivity extends ActionBarActivity {
                                     View itemClicked, int position, long id) {
                 Toast.makeText(getApplicationContext(), ((TextView) itemClicked).getText(),
                         Toast.LENGTH_SHORT).show();
-
                 selectionProduct.setText("");//обнуляем старую метку списка продуктов
+
                 //Создаём массив значений, к которым можно получить доступ
                 SparseBooleanArray chosenProducts = ((ListView) parent).getCheckedItemPositions();
                 //Перебираем весь массив
                 for (int i = 0; i < chosenProducts.size(); i++) {
-                    // если пользователь выбрал пункт списка, то выводим его в TextView.
+                    // если пользователь выбрал пункт из списка, то выводим его в TextView.
                     if (chosenProducts.valueAt(i)) {
                         //Выводим отмеченные продукты в метку
-                        selectionProduct.append(Products[chosenProducts.keyAt(i)] + " ");
-                        //subListProducts.add(Products[chosenProducts.keyAt(i)]); //добавляем
-                        //selectionProduct.setText((CharSequence) subListProducts.get(i));
                         mapProduct.put(Products[chosenProducts.keyAt(i)], productGroup);
+                        for (String key : mapProduct.keySet()) {
+                        selectionProduct.append("  " + key + "  ");
+                        }
 
                     }
                 }
-
-
 
             }
         });
@@ -137,10 +137,8 @@ public class SubProductActivity extends ActionBarActivity {
 
         //вернуть список выбранных продуктов в ПродактАктивити
         Intent answerSubProductIntent = new Intent();
-        //answerSubProductIntent.putExtra(PRODECTS_LIST, selectionProduct.getText().toString());
-        answerSubProductIntent.putExtra(PRODECTS_LIST, mapProduct);
+        answerSubProductIntent.putExtra("PRODECTS_LIST", mapProduct);
         setResult(RESULT_OK, answerSubProductIntent);
-
         finish();
     }
 
