@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -24,13 +25,15 @@ public class ProductActivity extends ActionBarActivity {
     public ListView listViewProduct;    //переменна€ дл€ листа продуктов
     public String typeProduct;          //текстова€ метка типа продуктов (м€со/овощи/etc)
     public HashMap<String, String> generalMapProduct = new HashMap<String, String>();   //ќбщий список выбранных продуктов
-    public HashMap<String, String> mapProduct = new HashMap<String, String>();          //—писок части выбранных продуктов
-    static final private int NUMBER_SUB_PRODUCT_ACTIVITY = 0;                           //Ќомер активити выбора продуктов
+    public HashMap<String, String> mapProduct = new HashMap<String, String>();  //—писок части выбранных продуктов
+    public ArrayList<String> listChangeMarket;  //—писок выбранных магазинов
+    static final private int NUMBER_SUB_PRODUCT_ACTIVITY = 3;   //Ќомер активити выбора продуктов
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
 
         listViewProduct = (ListView)findViewById(R.id.listViewProduct);             //Ћист¬ью продуктов
         selectionProduct = (TextView) findViewById(R.id.textViewProductListTest);   //—писок выбранных продуктов
@@ -41,9 +44,33 @@ public class ProductActivity extends ActionBarActivity {
         listViewProduct.setAdapter(adapterProduct);     //присобачиваем адаптер к списку продуктов
 
         //«абираем из ћайнјктивити список выбранных магазинов
-        String listMarket = "—писок выбранных продуктов не пришЄл. Ёто странно";
-        listMarket = getIntent().getExtras().getString("listMarkets");
-        selectionMarket.setText(listMarket);    //ѕоказываем список выбранных магазинов
+       // String listMarket = "—писок выбранных продуктов не пришЄл. Ёто странно";
+       // listMarket = getIntent().getExtras().getString("listMarkets");
+       // selectionMarket.setText(listMarket);    //ѕоказываем список выбранных магазинов
+        Intent intentMarket = getIntent();
+        listChangeMarket = (ArrayList<String>)intentMarket.getSerializableExtra("putChangeMarketList");
+        selectionMarket.setText("");
+        if (listChangeMarket.isEmpty()){
+            selectionMarket.setText(R.string.textMarketListTest);
+        } else {
+            for (int i = 0; i < listChangeMarket.size(); i++)
+            {
+                selectionMarket.append("  " + listChangeMarket.get(i) + "  ");//ѕоказываем список выбранных магазинов
+            }
+        }
+        //«абираем из ћайнјктивити список выбранных продуктов (если он там был)
+        Intent intentProduct = getIntent();
+        generalMapProduct = (HashMap<String, String>)intentProduct.getSerializableExtra("generalMapProduct");
+        if (generalMapProduct.isEmpty()){
+            //≈сли главна€ мапа пуста€, не делать ничего
+        }else{
+            selectionProduct.setText("");
+            for (String key : generalMapProduct.keySet()) {
+                selectionProduct.append("  " + key + "  ");
+            }
+        }
+
+
 
         //—оздаЄм слушател€ дл€ списка продуктов
         listViewProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,7 +114,9 @@ public class ProductActivity extends ActionBarActivity {
                 // «апускаем активность выбора конкретных продуктов
                 Intent intentSubProduct = new Intent(ProductActivity.this, SubProductActivity.class);
                 // в ключ typeProduct пихаем текстовую метку, по которой будет видно тип продуктов
-                intentSubProduct.putExtra("typeProduct", typeProduct);
+                intentSubProduct.putExtra("typeProduct", typeProduct);  //—охран€ем тип продуктов, которые будем выбирать
+                intentSubProduct.putExtra("generalMapProduct", generalMapProduct);//сохран€ем общий список выбранных продуктов
+               // intentSubProduct.putExtra("putChangeMarketList", listChangeMarket); //—охран€ем список выбранных магазинов
                 startActivityForResult(intentSubProduct, NUMBER_SUB_PRODUCT_ACTIVITY);
 
             }
@@ -188,6 +217,12 @@ public class ProductActivity extends ActionBarActivity {
 
     //«акрываем активити и возвращаемс€ к выбору магазинов
     public void onClickBack2(View view) {
+        Intent ProductIntent = new Intent();
+        ProductIntent.putExtra("generalMapProduct", generalMapProduct);//сохран€ем общий список выбранных продуктов
+        setResult(RESULT_OK, ProductIntent);
         finish();
+        //—оздаЄм интент дл€ передачи данных в другую активити
+        //Intent intent = new Intent(ProductActivity.this, MainActivity.class);
+        //startActivity(intent);
     }
 }

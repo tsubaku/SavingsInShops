@@ -4,8 +4,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="stringSetMarket">Отметьте магазины</string>
-    <string name="stringSetProduct">Отметьте продукты</string>
+    <string name="stringSetMarket">Выберите магазины</string>
+    <string name="stringSetProduct">Выберите продукты</string>
     <string name="Next">Вперёд</string>
     <string name="Back">Назад</string>
     <string name="OkButtonText">Сохранить выбор</string>

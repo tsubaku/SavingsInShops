@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -24,8 +25,11 @@ public class SubProductActivity extends ActionBarActivity {
     public ListView listViewVegetables; //переменна€ дл€ списка овощей
     public ListView listViewProducts; //переменна€ дл€ списка продуктов
     public HashMap<String, String> mapProduct = new HashMap<String, String>();
+    public HashMap<String, String> generalMapProduct = new HashMap<String, String>();   //ќбщий список выбранных продуктов
+    public ArrayList<String> listChangeMarket;  //—писок выбранных магазинов
     String productGroup; //строка дл€ V - группы продуктов в HashMap
-
+    SparseBooleanArray chosenProducts;
+    String[] Products;
     public final static String PRODECTS_LIST = "com.tsubaku.savingsinshops.Products";
 
     @Override
@@ -44,11 +48,19 @@ public class SubProductActivity extends ActionBarActivity {
         //ѕрописываем их в тектовую метку
         //selectionProduct.setText(typeSubProduct);
 
+        //«абираем общий список выбранных продуктов
+        Intent intentProduct = getIntent();
+        generalMapProduct = (HashMap<String, String>)intentProduct.getSerializableExtra("generalMapProduct");
+
+        //«абираем список выбранных магазинов
+        //Intent intentMarket = getIntent();
+        //listChangeMarket = (ArrayList<String>)intentMarket.getSerializableExtra("putChangeMarketList");
+
         // получаем экземпл€р элемента ListView дл€ списка овощей/фруктов/etc
         listViewProducts = (ListView)findViewById(R.id.listViewSubProducts);
 
         //—мотрим, какой тип продуктов выбран и формируем Ћист¬ью дл€ него
-        final String[] Products;
+
         if(typeSubProduct.equalsIgnoreCase("vegetables")) {
             //selectionProduct.append(typeSubProduct + " 1");
             Products = getResources().getStringArray(R.array.vegetablesNames);
@@ -80,6 +92,35 @@ public class SubProductActivity extends ActionBarActivity {
                 android.R.layout.simple_list_item_multiple_choice, Products);
         listViewProducts.setAdapter(adapter3); //присобачиваем адаптер к списку продуктов
 
+        //–асставл€ем галочки на продуктах, в зависимости от ранее сделанного выбора
+        ///listViewProducts.performItemClick(listViewProducts.getAdapter().
+        ///        getView(0, null, null), 0, listViewProducts.getAdapter().
+        ///        getItemId(0));
+
+        if (generalMapProduct.isEmpty()){
+            //≈сли главна€ мапа пуста€, не делать ничего
+        }else{
+            for(Iterator<HashMap.Entry<String, String>> it = generalMapProduct.entrySet().iterator(); it.hasNext(); ) {
+                HashMap.Entry<String, String> entry = it.next();
+                if(entry.getValue().equals(productGroup)) { //≈сли совпало, то где-то тут надо нажать галочку.  акую?
+                String keyProduct = entry.getKey();       //Ќазвание уже выбранного ранее продукта
+                    for (int i = 0; i < adapter3.getCount(); i++) {
+                        if (adapter3.getItem(i).equals(keyProduct)) {
+                            //ƒобавл€ем их в список выбранных продуктов
+                            listViewProducts.performItemClick(listViewProducts.getAdapter().
+                                getView(i, null, null), i, listViewProducts.getAdapter().
+                                getItemId(i)); //“аки ставим галочки на ранее выбранные продукты
+                        } else {
+                            Toast.makeText(getApplicationContext(), productGroup, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    //ничего
+                }
+            }
+        }
+
+
         //—оздаЄм слушател€ дл€ списка продуктов
         listViewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,7 +131,7 @@ public class SubProductActivity extends ActionBarActivity {
                 selectionProduct.setText("");//обнул€ем старую метку списка продуктов
 
                 //—оздаЄм массив значений, к которым можно получить доступ
-                SparseBooleanArray chosenProducts = ((ListView) parent).getCheckedItemPositions();
+                chosenProducts = ((ListView) parent).getCheckedItemPositions();
                 //ѕеребираем весь массив
                 for (int i = 0; i < chosenProducts.size(); i++) {
                     // если пользователь выбрал пункт из списка, то выводим его в TextView.
@@ -135,9 +176,21 @@ public class SubProductActivity extends ActionBarActivity {
     //ѕереходим в активити с таблицей
     public void onClickOk3(View view) {
 
+        //ѕеребираем весь массив продуктов нашей группы
+        mapProduct.clear();
+        chosenProducts = listViewProducts.getCheckedItemPositions();
+        for (int i = 0; i < chosenProducts.size(); i++) {
+            // если пользователь выбрал пункт из списка, то выводим его в TextView.
+            if (chosenProducts.valueAt(i)) {
+                //ƒобавл€ем их в список выбранных продуктов
+                mapProduct.put(Products[chosenProducts.keyAt(i)], productGroup);
+            }
+        }
+
         //вернуть список выбранных продуктов в ѕродактјктивити
         Intent answerSubProductIntent = new Intent();
-        answerSubProductIntent.putExtra("PRODECTS_LIST", mapProduct);
+        answerSubProductIntent.putExtra("PRODECTS_LIST", mapProduct);           //сохран€ем выбранные продукты
+        //answerSubProductIntent.putExtra("putChangeMarketList", listChangeMarket);//—охран€ем выбранные магазины
         setResult(RESULT_OK, answerSubProductIntent);
         finish();
     }
