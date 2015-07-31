@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
     public ArrayList <String> changeMarketList = new ArrayList<String>(); //Список выбранных магазинов
     public HashMap<String, String> mapProduct = new HashMap<String, String>();  //Список части выбранных продуктов
     public HashMap<String, String> generalMapProduct = new HashMap<String, String>();   //Общий список выбранных продуктов
-    static final private int PRODUCT_ACTIVITY =2;
+    static final private int PRODUCT_ACTIVITY = 2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

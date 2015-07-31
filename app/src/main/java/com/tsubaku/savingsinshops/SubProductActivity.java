@@ -93,10 +93,6 @@ public class SubProductActivity extends ActionBarActivity {
         listViewProducts.setAdapter(adapter3); //присобачиваем адаптер к списку продуктов
 
         //Расставляем галочки на продуктах, в зависимости от ранее сделанного выбора
-        ///listViewProducts.performItemClick(listViewProducts.getAdapter().
-        ///        getView(0, null, null), 0, listViewProducts.getAdapter().
-        ///        getItemId(0));
-
         if (generalMapProduct.isEmpty()){
             //Если главная мапа пустая, не делать ничего
         }else{

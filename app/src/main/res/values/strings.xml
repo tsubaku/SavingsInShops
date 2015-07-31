@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Savings In Shops</string>
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="title_activity_table">TableActivity</string>
+    <string name="title_activity_sub_product">SubProductActivity</string>
+    <string name="title_activity_change">ChangeActivity</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -12,7 +16,6 @@
     <string name="CancelButtonText">Отменить выбор</string>
     <string name="textMarketListTest">Магазины не выбраны</string>
     <string name="textProductListTest">Продукты не выбраны</string>
-    <string name="textMeatListTest">Мясные продукты не выбраны</string>
 
     <string-array name="marketNames">
         <item>Атак</item>
@@ -36,42 +39,39 @@
         <item>Картофель</item>
         <item>Морковь</item>
         <item>Капуста</item>
+        <item>Лук</item>
+        <item>Помидоры</item>
+        <item>Огурцы</item>
     </string-array>
-    <string name="Potatoes">Картофель</string>
-    <string name="Carrot">Корковь</string>
-    <string name="Cabbage">Капуста</string>
 
     <string-array name="fruitsNames">
         <item>Бананы</item>
         <item>Яблоки</item>
         <item>Апельсины</item>
+        <item>Мандарины</item>
+        <item>Груши</item>
     </string-array>
 
     <string-array name="groatsNames">
         <item>Рис</item>
-        <item>Гречка</item>
+        <item>Гречневая крупа</item>
         <item>Горох</item>
+        <item>Манная крупа</item>
+        <item>Перловая крупа</item>
+        <item>Пшено</item>
     </string-array>
 
     <string-array name="meatNames">
         <item>Говядина</item>
+        <item>Говяжьи кости</item>
         <item>Свинина</item>
+        <item>Свиные кости</item>
         <item>Окорочка куриные</item>
+        <item>Фарш свиной</item>
+        <item>Фарш говяжий</item>
+        <item>Котлеты</item>
+        <item>Пельмени</item>
     </string-array>
-    <string name="Beef">Говядина</string>
-    <string name="Pork">Свинина</string>
-    <string name="ChickenLegs">Окорочка куриные</string>
-
-
-
-
-    <string name="title_activity_product">ProductActivity</string>
-    <string name="title_activity_table">TableActivity</string>
-    <string name="title_activity_sub_product">SubProductActivity</string>
-    <string name="title_activity_change">ChangeActivity</string>
-    <string name="title_activity_groads">Крупы</string>
-    <string name="title_activity_meat">Мясные продукты</string>
-    <string name="title_activity_vegetables">VegetablesActivity</string>
 
 
 </resources>

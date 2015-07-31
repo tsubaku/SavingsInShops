@@ -212,7 +212,11 @@ public class ProductActivity extends ActionBarActivity {
     //ѕереходим в активити с таблицей
     public void onClickNext2(View view) {
         Intent intentTableActivity = new Intent(ProductActivity.this, TableActivity.class);
+        intentTableActivity.putExtra("putChangeMarketList", listChangeMarket);//—охран€ем списки
+        intentTableActivity.putExtra("generalMapProduct", generalMapProduct);//магазинов и продуктов
         startActivity(intentTableActivity);
+
+
     }
 
     //«акрываем активити и возвращаемс€ к выбору магазинов
