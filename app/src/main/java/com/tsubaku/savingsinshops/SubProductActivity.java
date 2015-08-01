@@ -122,8 +122,8 @@ public class SubProductActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent,
                                     View itemClicked, int position, long id) {
-                Toast.makeText(getApplicationContext(), ((TextView) itemClicked).getText(),
-                        Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), ((TextView) itemClicked).getText(),
+                //        Toast.LENGTH_SHORT).show();
                 selectionProduct.setText("");//обнул€ем старую метку списка продуктов
 
                 //—оздаЄм массив значений, к которым можно получить доступ
@@ -134,11 +134,12 @@ public class SubProductActivity extends ActionBarActivity {
                     if (chosenProducts.valueAt(i)) {
                         //¬ыводим отмеченные продукты в метку
                         mapProduct.put(Products[chosenProducts.keyAt(i)], productGroup);
-                        for (String key : mapProduct.keySet()) {
-                        selectionProduct.append("  " + key + "  ");
-                        }
+
 
                     }
+                }
+                for (String key : mapProduct.keySet()) {
+                    selectionProduct.append("  " + key + "  ");
                 }
 
             }
@@ -191,7 +192,7 @@ public class SubProductActivity extends ActionBarActivity {
         finish();
     }
 
-    //«акрываем активити и возвращаемс€ к выбору магазинов
+    //«акрываем активити и возвращаемс€ к выбору продуктов
     public void onClickCancel3(View view) {
         finish();
     }

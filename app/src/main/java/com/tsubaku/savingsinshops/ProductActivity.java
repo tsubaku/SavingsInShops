@@ -43,10 +43,7 @@ public class ProductActivity extends ActionBarActivity {
         ArrayAdapter<String> adapterProduct = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productName);
         listViewProduct.setAdapter(adapterProduct);     //присобачиваем адаптер к списку продуктов
 
-        //Забираем из МайнАктивити список выбранных магазинов
-       // String listMarket = "Список выбранных продуктов не пришёл. Это странно";
-       // listMarket = getIntent().getExtras().getString("listMarkets");
-       // selectionMarket.setText(listMarket);    //Показываем список выбранных магазинов
+        //Забираем из МайнАктивити список выбранных магазинов и продуктов
         Intent intentMarket = getIntent();
         listChangeMarket = (ArrayList<String>)intentMarket.getSerializableExtra("putChangeMarketList");
         selectionMarket.setText("");
@@ -138,9 +135,9 @@ public class ProductActivity extends ActionBarActivity {
                 //Забираем список выбранных продуктов
                 HashMap<String, String> hashMapProducts = (HashMap<String, String>)data.getSerializableExtra("PRODECTS_LIST");
 
-                if (hashMapProducts.isEmpty()){ //Если пользователь ничего не выбрал, то ничего и не делаем
-                    selectionProduct.setText("no change");
-                } else {
+            //    if (hashMapProducts.isEmpty()){ //Если пользователь ничего не выбрал, то ничего и не делаем
+            //        selectionProduct.setText("no change");
+            //    } else {
                     //Тут проверка, выводящая принятый хешмап в метку
                     //for (String key : hashMapProducts.keySet()) {
                     //    selectionProduct.append(hashMapProducts + " ");
@@ -175,7 +172,7 @@ public class ProductActivity extends ActionBarActivity {
                     }
                     //selectionProduct.append(generalMapProduct + " ");
 
-                }
+            //    }
                     //selectionProduct.setText(hashMapProducts.get("meat"));
 
 

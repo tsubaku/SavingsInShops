@@ -39,38 +39,91 @@
         <item>Картофель</item>
         <item>Морковь</item>
         <item>Капуста</item>
+        <item>Китайская капуста</item>
+        <item>Свекла</item>
+        <item>Дайкон</item>
+        <item>Редька</item>
+        <item>Сельдерей</item>
+        <item>Репа</item>
         <item>Лук</item>
+        <item>Чеснок</item>
         <item>Помидоры</item>
         <item>Огурцы</item>
+        <item>Брокколи</item>
+        <item>Баклажаны</item>
+        <item>Кабачки</item>
+        <item>Паттисоны</item>
+        <item>Тыква</item>
     </string-array>
 
     <string-array name="fruitsNames">
-        <item>Бананы</item>
-        <item>Яблоки</item>
+        <item>Алыча</item>
         <item>Апельсины</item>
-        <item>Мандарины</item>
+        <item>Абрикосы</item>
+        <item>Бананы</item>
+        <item>Вишня</item>
         <item>Груши</item>
+        <item>Персики</item>
+        <item>Сливы</item>
+        <item>Черешня</item>
+        <item>Мандарины</item>
+        <item>Яблоки</item>
     </string-array>
 
     <string-array name="groatsNames">
-        <item>Рис</item>
+        <item>Рис круглый</item>
+        <item>Рис продолговатый</item>
+        <item>Рис пропаренный</item>
+        <item>Рис коричневый</item>
+        <item>Рис жасмин</item>
         <item>Гречневая крупа</item>
+        <item>Гречневый продел</item>
         <item>Горох</item>
         <item>Манная крупа</item>
         <item>Перловая крупа</item>
-        <item>Пшено</item>
+        <item>Пшенная крупа</item>
+        <item>Зёрна пшеницы</item>
+        <item>Кукурузная крупа</item>
+        <item>Ячневая крупа</item>
+        <item>Просо</item>
+        <item>Овсянные хлопья</item>
+        <item>Кукурузные хлопья</item>
+        <item>Ржаные хлопья</item>
+        <item>Ячменные хлопья</item>
+        <item>Картофельные хлопья</item>
+        <item>Нут</item>
+        <item>Крупа кус-кус</item>
+        <item>Горох маш</item>
+        <item>Отруби</item>
+        <item>Овсянные хлопья</item>
+        <item>Ячмень</item>
+
+
     </string-array>
 
     <string-array name="meatNames">
+        <item>Баранина</item>
         <item>Говядина</item>
         <item>Говяжьи кости</item>
         <item>Свинина</item>
         <item>Свиные кости</item>
         <item>Окорочка куриные</item>
+        <item>Голени куриные</item>
+        <item>Бёдрышки куриные</item>
+        <item>Грудка куриная</item>
+        <item>Индейка</item>
         <item>Фарш свиной</item>
         <item>Фарш говяжий</item>
-        <item>Котлеты</item>
-        <item>Пельмени</item>
+        <item>Котлеты свиные</item>
+        <item>Котлеты говяжьи</item>
+        <item>Шашлык маринованный</item>
+        <item>Печень свиная</item>
+        <item>Печень говяжья</item>
+        <item>Почки свиные</item>
+        <item>Почки говяжьи</item>
+        <item>Язык говяжий</item>
+        <item>Куриные сердечки</item>
+        <item>Сало свиное</item>
     </string-array>
 
 

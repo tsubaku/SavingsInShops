@@ -4,8 +4,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.tsubaku.savingsinshops.TableActivity"
-    android:background="@color/accent_material_dark">
+    android:background="#22aa33"
+    tools:context="com.tsubaku.savingsinshops.TableActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -34,29 +34,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/gridViewTable"
-                android:columnWidth="50dp"
+                android:columnWidth="150dp"
                 android:gravity="center"
-                android:horizontalSpacing="15dp"
-                android:verticalSpacing="35dp"
+                android:horizontalSpacing="5dp"
+                android:verticalSpacing="5dp"
                 android:numColumns="auto_fit"
-                android:stretchMode="columnWidth"
+                android:stretchMode="none"
+                android:background="@android:color/holo_blue_dark"
                 >
 
             </GridView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textMarketListTest"
-                android:id="@+id/textViewMarketListTest"
-                android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/textProductListTest"
-                android:id="@+id/textViewProductListTest"
-                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 

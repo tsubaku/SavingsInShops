@@ -1,7 +1,9 @@
 package com.tsubaku.savingsinshops;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -79,7 +82,23 @@ public class TableActivity extends Activity implements
                 // TODO Auto-generated method stub
                 textViewProduct.setText("changed element: "
                         + mAdapter.GetItem(position));
-                //gridViewTable.setNumColumns(3);//зададим количество столбцов таблицы
+
+                //При нажатии на ячейку, вызываем диалог установки нового значения цены продукта
+                AlertDialog.Builder builder = new AlertDialog.Builder(TableActivity.this);
+                builder.setTitle("Edit price")
+                        .setMessage("Test")
+                        .setIcon(R.drawable.cell)
+                        .setCancelable(false)
+                        .setNegativeButton("Okay",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+                //Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -88,7 +107,7 @@ public class TableActivity extends Activity implements
     public void onItemSelected(AdapterView<?> parent, View v, int position,
                                long id) {
         // TODO Auto-generated method stub
-        textViewProduct.setText("changed element: " + mAdapter.GetItem(position));
+        textViewProduct.setText("changed element= " + mAdapter.GetItem(position));
     }
 
     @Override
@@ -98,17 +117,20 @@ public class TableActivity extends Activity implements
     }
 
 //====================== DataAdapter =====================================(
-
     public static class DataAdapter extends ArrayAdapter<String> {
         Context mContext;
-
         // Конструктор
         public DataAdapter(Context context, int textViewResourceId) {
             super(context, textViewResourceId, mContacts);
             // TODO Auto-generated constructor stub
 
             for (int i = 0; i < nCell; i++){
-                mContacts[i] = "no info";
+                if (i == 0){
+                    mContacts[i] = "";//В первую ячейку гридВью ничего не кладём
+                } else {
+                    mContacts[i] = "no info";
+                }
+
             }
 
             this.mContext = context;
@@ -117,7 +139,22 @@ public class TableActivity extends Activity implements
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // TODO Auto-generated method stub
+//---(
+    //        ImageView imageView;
+    //        if (convertView == null) {
+                // if it's not recycled, initialize some attributes
+    //            imageView = new ImageView(mContext);
+    //            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+    //           imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    //            imageView.setPadding(8, 8, 8, 8);
+    //        } else {
+    //            imageView = (ImageView) convertView;
+    //        }
 
+    //        imageView.setImageResource(R.drawable.cell);
+    //        return (imageView);
+
+//---)
             TextView label = (TextView) convertView;
 
             if (convertView == null) {
