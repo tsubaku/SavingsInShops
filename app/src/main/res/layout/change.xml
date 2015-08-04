@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/customdialog"
+    android:orientation="vertical"
+    android:layout_width="240dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ChangePriceText"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
+
+    <EditText
+        android:inputType="number"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/customDialog_EditText"
+        android:background="@color/primary_text_default_material_dark" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/SavePriceTextButton"
+            android:id="@+id/customDialog_Update"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CancelPriceTextButton"
+            android:id="@+id/customDialog_Dismiss"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

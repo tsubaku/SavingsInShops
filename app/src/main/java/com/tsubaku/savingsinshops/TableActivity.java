@@ -2,6 +2,7 @@ package com.tsubaku.savingsinshops;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +36,11 @@ public class TableActivity extends Activity implements
     private DataAdapter mAdapter; //адаптер дл€ таблицы
     public static int nCell; //количество €чеек в √рид¬ью
     private static String[] mContacts;//—одержимое €чеек √рид¬ью
+
+    TextView customDialog_TextView;
+    EditText customDialog_EditText;
+    Button customDialog_Update, customDialog_Dismiss;
+    static final int CUSTOM_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,40 +80,62 @@ public class TableActivity extends Activity implements
         }         //Toast.makeText(getApplicationContext(), Integer.toString(i), Toast.LENGTH_SHORT).show();
 
 
+//======= ƒиалог выбора новой цены ======(
         gridViewTable.setOnItemSelectedListener(this);  //ѕрисоедин€ем слушател€ дл€ действий с €чейками таблицы
         gridViewTable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             //ƒействи€ при клике по элементу таблицы
             @Override
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 // TODO Auto-generated method stub
-                textViewProduct.setText("changed element: "
-                        + mAdapter.GetItem(position));
+                //mContacts[position] = "tt";
+                ///Intent tableIntentForChange = new Intent();
+                ///tableIntentForChange.putExtra("position", position);//—охран€ем є позиции в таблице
+
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", position);
+                intent.putExtras(bundle);
+                //navigation.this.startActivity(intent);
+
+                showDialog(CUSTOM_DIALOG_ID, bundle);
+
+                 //Toast.makeText(getApplicationContext(), mContacts[position], Toast.LENGTH_SHORT).show();
+           }
+        });
+//=========================================)
+
+    //    gridViewTable.setOnItemSelectedListener(this);  //ѕрисоедин€ем слушател€ дл€ действий с €чейками таблицы
+    //    gridViewTable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            //ƒействи€ при клике по элементу таблицы
+    //        @Override
+    //        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                // TODO Auto-generated method stub
+    //            textViewProduct.setText("changed element: " + mAdapter.GetItem(position));
 
                 //ѕри нажатии на €чейку, вызываем диалог установки нового значени€ цены продукта
-                AlertDialog.Builder builder = new AlertDialog.Builder(TableActivity.this);
-                builder.setTitle("Edit price")
-                        .setMessage("Test")
-                        .setIcon(R.drawable.cell)
-                        .setCancelable(false)
-                        .setNegativeButton("Okay",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-                AlertDialog alert = builder.create();
-                alert.show();
+    //            AlertDialog.Builder builder = new AlertDialog.Builder(TableActivity.this);
+   //             builder.setTitle("Edit price")
+    //                    .setMessage("Test")
+     //                   .setIcon(R.drawable.cell)
+    //                    .setCancelable(false)
+    //                    .setNegativeButton("Okay",
+    //                            new DialogInterface.OnClickListener() {
+    //                                public void onClick(DialogInterface dialog, int id) {
+    //                                    dialog.cancel();
+    //                                }
+    //                            });
+    //            AlertDialog alert = builder.create();
+    //            alert.show();
                 //Toast.makeText(getApplicationContext(), "test", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+    //        }
+    //    });
+
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View v, int position,
-                               long id) {
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
         // TODO Auto-generated method stub
         textViewProduct.setText("changed element= " + mAdapter.GetItem(position));
     }
@@ -210,6 +240,66 @@ public class TableActivity extends Activity implements
         //—оздаЄм интент дл€ передачи данных в другую активити
         //Intent intent = new Intent(ProductActivity.this, MainActivity.class);
         //startActivity(intent);
+    }
+
+//=== —лушатели дл€ кнопок в диалоге выбора цены ========================(
+    private Button.OnClickListener customDialog_UpdateOnClickListener
+            = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View arg0) {
+        // TODO Auto-generated method stub
+            //customDialog_TextView.setText(customDialog_EditText.getText().toString());
+            customDialog_EditText.setText("");//ќбнулим поле дл€ цены
+
+            //ѕрописываем новую цену в таблицу
+            Bundle bundle = getIntent().getExtras();
+            int m = bundle.getInt("position");
+
+            //Intent intentT = getIntent();
+        //    int m = getIntent().getExtras().getInt("position");
+            //Toast.makeText(getApplicationContext(), mContacts[m], Toast.LENGTH_SHORT).show();
+            mContacts[m] = "777";
+            //Toast.makeText(getApplicationContext(), Integer.toString(m), Toast.LENGTH_SHORT).show();
+            mAdapter.notifyDataSetChanged();
+
+            dismissDialog(CUSTOM_DIALOG_ID);
+        }
+    };
+
+    private Button.OnClickListener customDialog_DismissOnClickListener
+            = new Button.OnClickListener(){
+
+        @Override
+        public void onClick(View arg0) {
+            // TODO Auto-generated method stub
+            removeDialog(CUSTOM_DIALOG_ID);
+        }
+    };
+//==========================================================================)
+
+    @Override
+    protected Dialog onCreateDialog(int id, Bundle args) {
+// TODO Auto-generated method stub
+        Dialog dialog = null;;
+        switch(id) {
+            case CUSTOM_DIALOG_ID:
+                dialog = new Dialog(TableActivity.this);
+
+                dialog.setContentView(R.layout.change);
+                dialog.setTitle(R.string.ChangePriceText);
+
+                customDialog_EditText = (EditText)dialog.findViewById(R.id.customDialog_EditText);
+                customDialog_TextView = (TextView)dialog.findViewById(R.id.textView2);
+                customDialog_Update = (Button)dialog.findViewById(R.id.customDialog_Update);
+                customDialog_Dismiss = (Button)dialog.findViewById(R.id.customDialog_Dismiss);
+
+                customDialog_Update.setOnClickListener(customDialog_UpdateOnClickListener);
+                customDialog_Dismiss.setOnClickListener(customDialog_DismissOnClickListener);
+
+                break;
+        }
+        return dialog;
     }
 
 }

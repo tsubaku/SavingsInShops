@@ -16,6 +16,9 @@
     <string name="CancelButtonText">Отменить выбор</string>
     <string name="textMarketListTest">Магазины не выбраны</string>
     <string name="textProductListTest">Продукты не выбраны</string>
+    <string name="ChangePriceText">Введите новую цену</string>
+    <string name="SavePriceTextButton">Сохранить</string>
+    <string name="CancelPriceTextButton">Отменить</string>
 
     <string-array name="marketNames">
         <item>Атак</item>
@@ -63,6 +66,7 @@
         <item>Бананы</item>
         <item>Вишня</item>
         <item>Груши</item>
+        <item>Нектарины</item>
         <item>Персики</item>
         <item>Сливы</item>
         <item>Черешня</item>
